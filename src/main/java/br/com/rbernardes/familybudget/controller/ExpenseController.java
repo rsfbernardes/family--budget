@@ -13,9 +13,9 @@ import br.com.rbernardes.familybudget.model.Expense;
 public class ExpenseController {
 
 	@GetMapping("/expenses")
-	public List<Expense> expenseList(){
+	public List<ExpenseDTO> expenseList(){
 		Expense expense = new Expense(1l, "gas", 100.00d, LocalDate.now());
-		return Arrays.asList(expense, expense, expense);
+		return ExpenseDTO.convertToDto(Arrays.asList(expense, expense, expense));
 	}
 
 }
