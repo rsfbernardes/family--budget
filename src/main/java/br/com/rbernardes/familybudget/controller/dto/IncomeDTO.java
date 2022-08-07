@@ -10,14 +10,14 @@ public class IncomeDTO {
 
 	private Long id;
 	private String description;
-	private Double value;
-	private LocalDate date;
+	private Double value_income;
+	private LocalDate date_income;
 	
 	public IncomeDTO(Income income) {
 		this.id = income.getId();
 		this.description = income.getDescription();
-		this.value = income.getValue();
-		this.date = income.getDate();
+		this.value_income = income.getValue();
+		this.date_income = income.getDate();
 	}
 
 	public Long getId() {
@@ -29,11 +29,11 @@ public class IncomeDTO {
 	}
 
 	public Double getValue() {
-		return value;
+		return value_income;
 	}
 
 	public LocalDate getDate() {
-		return date;
+		return date_income;
 	}
 
 	public static List<IncomeDTO> convertToDto(List<Income> incomes) {
