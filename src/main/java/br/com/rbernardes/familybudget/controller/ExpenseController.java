@@ -1,21 +1,25 @@
 package br.com.rbernardes.familybudget.controller;
 
-import java.time.LocalDate;
-import java.util.Arrays;
+
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.rbernardes.familybudget.model.Expense;
+import br.com.rbernardes.familybudget.repository.ExpenseRepository;
 
 @RestController
 public class ExpenseController {
+	
+	@Autowired
+	private ExpenseRepository expenseRepository;
 
 	@GetMapping("/expenses")
 	public List<ExpenseDTO> expenseList(){
-		Expense expense = new Expense(1l, "gas", 100.00d, LocalDate.now());
-		return ExpenseDTO.convertToDto(Arrays.asList(expense, expense, expense));
+		
+		List<Expense> expenses = expenseRepository.findAll();
+		return ExpenseDTO.convertToDto(expenses);
 	}
-
 }

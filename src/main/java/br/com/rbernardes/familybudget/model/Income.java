@@ -16,25 +16,11 @@ public class Income {
 	private String description;
 	private Double value_income;
 	private LocalDate date_income;
-	
-	public Income() {
-		
-	}
-	
-	public Income(Long id, String description, Double value_income, LocalDate date_income) {
-		super();
-		this.id = id;
-		this.description = description;
-		this.value_income = value_income;
-		this.date_income = date_income;
-	}
 
 	public Long getId() {
 		return id;
 	}
 	
-	
-
 	public void setId(Long id) {
 		this.id = id;
 	}

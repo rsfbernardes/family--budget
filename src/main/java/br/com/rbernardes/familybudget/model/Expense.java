@@ -16,18 +16,7 @@ public class Expense {
 	private String description;
 	private Double value_expense;
 	private LocalDate date_expense;
-	
-	public Expense() {
-		
-	}
-	
-	public Expense(Long id, String description, Double value_expense, LocalDate date_expense) {
-		super();
-		this.id = id;
-		this.description = description;
-		this.value_expense = value_expense;
-		this.date_expense = date_expense;
-	}
+
 
 	public Long getId() {
 		return id;
