@@ -17,6 +17,16 @@ public class Expense {
 	private Double value_expense;
 	private LocalDate date_expense;
 
+	public Expense() {
+		
+	}
+	
+	public Expense(String description, Double value_expense, LocalDate date_expense) {
+		super();
+		this.description = description;
+		this.value_expense = value_expense;
+		this.date_expense = date_expense;
+	}
 
 	public Long getId() {
 		return id;
@@ -38,8 +48,8 @@ public class Expense {
 		return value_expense;
 	}
 	
-	public void setValue(Double value) {
-		this.value_expense = value;
+	public void setValue(Double value_expense) {
+		this.value_expense = value_expense;
 	}
 
 	public LocalDate getDate() {

@@ -8,20 +8,15 @@ import br.com.rbernardes.familybudget.model.Income;
 
 public class IncomeDTO {
 
-	private Long id;
 	private String description;
 	private Double value_income;
+	
 	private LocalDate date_income;
 	
 	public IncomeDTO(Income income) {
-		this.id = income.getId();
 		this.description = income.getDescription();
 		this.value_income = income.getValue();
 		this.date_income = income.getDate();
-	}
-
-	public Long getId() {
-		return id;
 	}
 
 	public String getDescription() {
