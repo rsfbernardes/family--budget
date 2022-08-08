@@ -4,6 +4,8 @@ package br.com.rbernardes.familybudget.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +34,7 @@ public class ExpenseController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ExpenseDTO> addExpense(@RequestBody ExpenseForm expenseForm, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<ExpenseDTO> addExpense(@RequestBody @Valid ExpenseForm expenseForm, UriComponentsBuilder uriBuilder) {
 		Expense expense = expenseForm.converToExpense();
 		expenseRepository.save(expense);
 		

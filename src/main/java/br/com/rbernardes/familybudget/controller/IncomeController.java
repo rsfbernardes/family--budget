@@ -3,6 +3,8 @@ package br.com.rbernardes.familybudget.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,7 +33,7 @@ public class IncomeController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<IncomeDTO> addIncome(@RequestBody IncomeForm incomeForm, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<IncomeDTO> addIncome(@RequestBody @Valid IncomeForm incomeForm, UriComponentsBuilder uriBuilder) {
 		Income income = incomeForm.convertToIncome();
 		incomeRepository.save(income);
 		
