@@ -8,6 +8,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,6 +44,7 @@ public class IncomeController {
 	}
 	
 	@PostMapping
+	@Transactional
 	public ResponseEntity<IncomeDTO> addIncome(@RequestBody @Valid IncomeForm incomeForm, UriComponentsBuilder uriBuilder) {
 		Income income = incomeForm.convertToIncome();
 		incomeRepository.save(income);
@@ -56,5 +58,12 @@ public class IncomeController {
 	public ResponseEntity<IncomeDTO> incomeUpdate(@PathVariable @Valid Long id, @RequestBody @Valid UpdateIncomeForm updateIncomeForm) {
 		Income income = updateIncomeForm.update(id, incomeRepository);
 		return ResponseEntity.ok(new IncomeDTO(income));
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	@Transactional
+	public ResponseEntity<?> incomeDelete(@PathVariable @Valid Long id) {
+		incomeRepository.deleteById(id);		
+		return ResponseEntity.ok().build();
 	}
 }

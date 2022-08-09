@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +45,7 @@ public class ExpenseController {
 	}
 
 	@PostMapping
+	@Transactional
 	public ResponseEntity<ExpenseDTO> addExpense(@RequestBody @Valid ExpenseForm expenseForm, UriComponentsBuilder uriBuilder) {
 		Expense expense = expenseForm.converToExpense();
 		expenseRepository.save(expense);
@@ -57,5 +59,12 @@ public class ExpenseController {
 	public ResponseEntity<ExpenseDTO> expenseUpdate(@PathVariable @Valid Long id, @RequestBody @Valid UpdateExpenseForm updateExpenseForm) {
 		Expense expense = updateExpenseForm.update(id, expenseRepository);
 		return ResponseEntity.ok(new ExpenseDTO(expense));
+	}
+	
+	@DeleteMapping(value = "/{id}")
+	@Transactional
+	public ResponseEntity<?> expenseDelete(@PathVariable @Valid Long id){
+		expenseRepository.deleteById(id);
+		return ResponseEntity.ok().build();
 	}
 }
