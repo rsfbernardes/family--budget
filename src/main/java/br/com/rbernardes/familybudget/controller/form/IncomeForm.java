@@ -5,16 +5,20 @@ import java.time.LocalDate;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import br.com.rbernardes.familybudget.model.Income;
 
 public class IncomeForm {
 
 	@NotNull @NotEmpty
 	private String description;
-	@NotNull @NotEmpty
-	private Double value_incomeForm;
-	@NotNull @NotEmpty
-	private LocalDate date_incomeForm;
+	
+	@NotNull
+	private Double value;
+	
+	@NotNull @DateTimeFormat
+	private LocalDate date;
 	
 	public String getDescription() {
 		return description;
@@ -25,22 +29,22 @@ public class IncomeForm {
 	}
 	
 	public Double getValue_incomeForm() {
-		return value_incomeForm;
+		return value;
 	}
 	
-	public void setValue_incomeForm(Double value_incomeForm) {
-		this.value_incomeForm = value_incomeForm;
+	public void setValue_incomeForm(Double value) {
+		this.value = value;
 	}
 	
 	public LocalDate getDate_incomeForm() {
-		return date_incomeForm;
+		return date;
 	}
 	
-	public void setDate_incomeForm(LocalDate date_incomeForm) {
-		this.date_incomeForm = date_incomeForm;
+	public void setDate_incomeForm(LocalDate date) {
+		this.date = date;
 	}
 
 	public Income convertToIncome() {
-		return new Income(description, value_incomeForm, date_incomeForm);
+		return new Income(description, value, date);
 	}
 }

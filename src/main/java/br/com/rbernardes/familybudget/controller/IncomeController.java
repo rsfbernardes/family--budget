@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +31,12 @@ public class IncomeController {
 	public List<IncomeDTO> incomeList(){
 		List<Income> incomes = incomeRepository.findAll();	
 		return IncomeDTO.convertToDto(incomes);
+	}
+	
+	@GetMapping(value = "/{id}")
+	public IncomeDTO expenseById(@PathVariable @Valid Long id) {
+		Income income = incomeRepository.getReferenceById(id);		
+		return new IncomeDTO(income);
 	}
 	
 	@PostMapping
