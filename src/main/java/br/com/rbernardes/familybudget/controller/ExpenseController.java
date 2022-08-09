@@ -4,6 +4,7 @@ package br.com.rbernardes.familybudget.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.rbernardes.familybudget.controller.dto.ExpenseDTO;
 import br.com.rbernardes.familybudget.controller.form.ExpenseForm;
+import br.com.rbernardes.familybudget.controller.form.UpdateExpenseForm;
 import br.com.rbernardes.familybudget.model.Expense;
 import br.com.rbernardes.familybudget.repository.ExpenseRepository;
 
@@ -51,9 +53,9 @@ public class ExpenseController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ExpenseDTO expenseUpdate(@PathVariable @Valid Long id, @RequestBody @Valid ExpenseForm expenseForm) {
-		Expense expense = expenseForm.converToExpense();
-		expenseRepository.save(expense);		
-		return new ExpenseDTO(expense);
+	@Transactional
+	public ResponseEntity<ExpenseDTO> expenseUpdate(@PathVariable @Valid Long id, @RequestBody @Valid UpdateExpenseForm updateExpenseForm) {
+		Expense expense = updateExpenseForm.update(id, expenseRepository);
+		return ResponseEntity.ok(new ExpenseDTO(expense));
 	}
 }

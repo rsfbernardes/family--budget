@@ -9,14 +9,14 @@ import br.com.rbernardes.familybudget.model.Income;
 public class IncomeDTO {
 
 	private String description;
-	private Double value_income;
+	private Double value;
 	
-	private LocalDate date_income;
+	private LocalDate date;
 	
 	public IncomeDTO(Income income) {
 		this.description = income.getDescription();
-		this.value_income = income.getValue();
-		this.date_income = income.getDate();
+		this.value = income.getValue();
+		this.date = income.getDate();
 	}
 
 	public String getDescription() {
@@ -24,11 +24,11 @@ public class IncomeDTO {
 	}
 
 	public Double getValue() {
-		return value_income;
+		return value;
 	}
 
 	public LocalDate getDate() {
-		return date_income;
+		return date;
 	}
 
 	public static List<IncomeDTO> convertToDto(List<Income> incomes) {

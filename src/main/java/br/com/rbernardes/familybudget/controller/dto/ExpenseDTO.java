@@ -9,13 +9,13 @@ import br.com.rbernardes.familybudget.model.Expense;
 public class ExpenseDTO {
 
 	private String description;
-	private Double value_expense;
-	private LocalDate date_expense;
+	private Double value;
+	private LocalDate date;
 	
 	public ExpenseDTO(Expense expense) {
 		this.description = expense.getDescription();
-		this.value_expense = expense.getValue();
-		this.date_expense = expense.getDate();
+		this.value = expense.getValue();
+		this.date = expense.getDate();
 	}
 
 	public String getDescription() {
@@ -23,11 +23,11 @@ public class ExpenseDTO {
 	}
 
 	public Double getValue() {
-		return value_expense;
+		return value;
 	}
 
 	public LocalDate getDate() {
-		return date_expense;
+		return date;
 	}
 
 	public static List<ExpenseDTO> convertToDto(List<Expense> expenses) {
