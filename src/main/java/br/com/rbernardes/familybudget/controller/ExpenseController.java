@@ -3,6 +3,7 @@ package br.com.rbernardes.familybudget.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -39,9 +40,13 @@ public class ExpenseController {
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ExpenseDTO expenseById(@PathVariable @Valid Long id) {
-		Expense expense = expenseRepository.getReferenceById(id);		
-		return new ExpenseDTO(expense);
+	public ResponseEntity<ExpenseDTO> expenseById(@PathVariable @Valid Long id) {
+		Optional<Expense> expense = expenseRepository.findById(id);
+		if(expense.isPresent()) {
+			return ResponseEntity.ok(new ExpenseDTO(expense.get()));			
+		}
+		
+		return ResponseEntity.notFound().build();
 	}
 
 	@PostMapping
@@ -57,14 +62,24 @@ public class ExpenseController {
 	@PutMapping(value = "/{id}")
 	@Transactional
 	public ResponseEntity<ExpenseDTO> expenseUpdate(@PathVariable @Valid Long id, @RequestBody @Valid UpdateExpenseForm updateExpenseForm) {
-		Expense expense = updateExpenseForm.update(id, expenseRepository);
-		return ResponseEntity.ok(new ExpenseDTO(expense));
+		Optional<Expense> optional = expenseRepository.findById(id);
+		if(optional.isPresent()) {
+			Expense expense = updateExpenseForm.update(id, expenseRepository);
+			return ResponseEntity.ok(new ExpenseDTO(expense));
+		}
+		
+		return ResponseEntity.notFound().build();
 	}
 	
 	@DeleteMapping(value = "/{id}")
 	@Transactional
 	public ResponseEntity<?> expenseDelete(@PathVariable @Valid Long id){
-		expenseRepository.deleteById(id);
-		return ResponseEntity.ok().build();
+		Optional<Expense> optional = expenseRepository.findById(id);
+		if(optional.isPresent()) {
+			expenseRepository.deleteById(id);
+			return ResponseEntity.ok().build();			
+		}
+		
+		return ResponseEntity.notFound().build();
 	}
 }
